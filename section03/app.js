@@ -2,12 +2,14 @@
 //const http = require('http');//import file in js ./localfile
 
 //const routes = require('./routes');
+const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 
 const app = express();
 
-const adminRoutes = require('./routes/admin');
+//const adminRoutes = require('./routes/admin');
+const adminData = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 //const server = http.createServer(app);
 /*app.use((req, res, next) => {
@@ -27,11 +29,14 @@ app.use('/', (req, res, next)=> {
 });*/
 
 app.use(bodyParser.urlencoded({extended: false}));
-app.use(adminRoutes);
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use('/admin', adminData.routes);
 app.use(shopRoutes);
 
 app.use((req, res, next) => {
-    res.status(404).send('<h1>Page not found</h1>');
+    //res.status(404).send('<h1>Page not found</h1>');
+    res.status(404).sendFile(path.join(__dirname, 'views', '404.html'));
 })
 //app.use(express.json());
 //app.use(express.urlencoded({
