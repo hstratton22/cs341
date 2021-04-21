@@ -7,6 +7,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const app = express();
+app.set('view engine', 'pug');
+app.set('views', 'section03/views');
 
 //const adminRoutes = require('./routes/admin');
 const adminData = require('./routes/admin');
@@ -36,7 +38,8 @@ app.use(shopRoutes);
 
 app.use((req, res, next) => {
     //res.status(404).send('<h1>Page not found</h1>');
-    res.status(404).sendFile(path.join(__dirname, 'views', '404.html'));
+    //res.status(404).sendFile(path.join(__dirname, 'views', '404.html'));
+    res.status(404).render('404', {pageTitle: 'Page Not Found!'});
 })
 //app.use(express.json());
 //app.use(express.urlencoded({
