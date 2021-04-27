@@ -5,21 +5,23 @@
 const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
-const expressHbs = require('express-handlebars');
-
+//const expressHbs = require('express-handlebars');
+const errorController = require('./controllers/error');
 const app = express();
 
-app.engine('hbs', expressHbs({
+/*app.engine('hbs', expressHbs({
     layoutsDir: 'section03/views/layouts/', 
     defaultLayout: 'main-layout', 
     extname: 'hbs'
 }));
-app.set('view engine', 'hbs');
+*/
+//app.set('view engine', 'hbs');
+app.set('view engine', 'ejs');
 //app.set('view engine', 'pug');
 app.set('views', 'section03/views');
 
-//const adminRoutes = require('./routes/admin');
-const adminData = require('./routes/admin');
+const adminRoutes = require('./routes/admin');
+//const adminData = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 //const server = http.createServer(app);
 /*app.use((req, res, next) => {
@@ -41,14 +43,11 @@ app.use('/', (req, res, next)=> {
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/admin', adminData.routes);
+//app.use('/admin', adminData.routes);
+app.use('/admin', adminRoutes);
 app.use(shopRoutes);
 
-app.use((req, res, next) => {
-    //res.status(404).send('<h1>Page not found</h1>');
-    //res.status(404).sendFile(path.join(__dirname, 'views', '404.html'));
-    res.status(404).render('404', {pageTitle: 'Page Not Found!'});
-})
+app.use(errorController.get404);
 //app.use(express.json());
 //app.use(express.urlencoded({
 //    extended:false
