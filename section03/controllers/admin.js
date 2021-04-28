@@ -1,4 +1,3 @@
-//const products = [];
 const Product = require('../models/product');
 
 exports.getAddProduct = (req, res, next) => {
@@ -19,31 +18,24 @@ exports.getAddProduct = (req, res, next) => {
 exports.postAddProduct = (req, res, next)=> {
     //console.log(req.body);
     //products.push({title: req.body.title})
-    const product = new Product(req.body.title);
+    const title = req.body.title;
+    const imageUrl =  req.body.imageUrl;
+    const price = req.body.price;
+    const description = req.body.description;
+
+    const product = new Product(title, imageUrl, description, price);
     product.save();
     res.redirect('/');
 
 };
 exports.getProducts = (req, res, next) => {
     Product.fetchAll((products) => {
-        res.render('shop/product-list', {
-            prods: products, 
-            pageTitle: 'Shop', 
-            path:'/', 
-            hasProducts: products.length > 0,
-            activeShop: true,
-            productCSS: true
-        });
-        
-    });
+        res.render('admin/products', {
+            prods: products,
+            pageTitle: 'Admin Products',
+            path: '/admin/products'
 
-    };
-    //const products = Product.fetchAll();
-    //console.log('another in the middleware');
-    //res.send('<h1>Hello from Express!</h1>');
-    //console.log(adminData.products);
-    //res.sendFile(path.join(__dirname, '../', 'views', 'shop.html')); 
-    //res.sendFile(path.join(rootDir, 'views', 'shop.html'));
-    //const products = adminData.products;
-    //res.render('shop', {prods: products, pageTitle: 'Shop', path:'/'});
-    
+        });
+
+    });
+}
