@@ -7,6 +7,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 //const expressHbs = require('express-handlebars');
 const errorController = require('./controllers/error');
+const PORT = process.env.PORT || 3000 
 const app = express();
 
 /*app.engine('hbs', expressHbs({
@@ -71,7 +72,7 @@ app.use('/', (req, res, next) => {
     
 });
 */
-app.listen(3000);
+app.listen(PORT);
 //const fs = require('fs');
 //function rqListener(req, res) {
 //}
