@@ -6,7 +6,7 @@ const Cart = require('./cart');
 const p = path.join(
     path.dirname(process.mainModule.filename),
     'data',
-    'products.json'
+    'newProducts.json'
 );
 const getProductsFromFile = (cb) => {
     fs.readFile(p, (err, fileContent) => {
@@ -25,6 +25,7 @@ module.exports = class Product {
         this.id = id
         this.title = title;
         this.imageUrl = imageUrl;
+        //path.join(path.dirname(process.mainModule.filename),'imageUrl');
         this.description = description;
         this.price = price;
     }
