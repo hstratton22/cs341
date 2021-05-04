@@ -1,4 +1,6 @@
 //https://cse341tutorial.herokuapp.com/
+//https://git.heroku.com/cse341tutorial.git 
+//origin  git@github.com:hstratton22/cs341.git
 //http-launch a server, send request, https-launch SSL server, fs, path, os
 //const http = require('http');//import file in js ./localfile
 
